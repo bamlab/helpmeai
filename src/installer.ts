@@ -42,15 +42,14 @@ export class SkillInstaller {
     target: Target
   ): Promise<string[]> {
     const installedFiles: string[] = [];
-    const skillDir = join(target.path, skill.id);
 
-    // Create skill directory
-    await mkdir(skillDir, { recursive: true });
+    // Ensure the target directory exists
+    await this.ensureDirectory(target.path);
 
-    // Write all files
+    // Write skill content directly as {skill-id}.md
     for (const [filename, content] of files) {
-      const filePath = join(skillDir, filename);
-      await this.ensureDirectory(dirname(filePath));
+      // Use the skill ID as the filename (e.g., react-query-v5.md)
+      const filePath = join(target.path, `${skill.id}.md`);
       await writeFile(filePath, content, 'utf-8');
       installedFiles.push(filePath);
     }

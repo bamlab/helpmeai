@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import type { Skill, SkillsIndex, Config } from './types.js';
 
 /**
@@ -11,6 +13,13 @@ export class SkillDownloader {
    */
   async fetchIndex(): Promise<SkillsIndex> {
     const url = `${this.config.registryUrl}/index.json`;
+    
+    // Handle local file:// URLs for testing
+    if (url.startsWith('file://')) {
+      const filePath = fileURLToPath(url);
+      const content = await readFile(filePath, 'utf-8');
+      return JSON.parse(content) as SkillsIndex;
+    }
     
     const response = await fetch(url);
     if (!response.ok) {
@@ -27,16 +36,25 @@ export class SkillDownloader {
   async fetchSkillContent(skill: Skill): Promise<Map<string, string>> {
     const files = new Map<string, string>();
     
-    // Fetch SKILL.md (main skill file)
-    const skillMdUrl = `${this.config.registryUrl}/${skill.path}/SKILL.md`;
-    const response = await fetch(skillMdUrl);
+    // Fetch the skill file directly (path now includes the filename)
+    const skillUrl = `${this.config.registryUrl}/${skill.path}`;
+    
+    // Handle local file:// URLs for testing
+    if (skillUrl.startsWith('file://')) {
+      const filePath = fileURLToPath(skillUrl);
+      const content = await readFile(filePath, 'utf-8');
+      files.set('content', content);
+      return files;
+    }
+    
+    const response = await fetch(skillUrl);
     
     if (!response.ok) {
       throw new Error(`Failed to fetch skill ${skill.id}: ${response.status} ${response.statusText}`);
     }
 
     const content = await response.text();
-    files.set('SKILL.md', content);
+    files.set('content', content);
 
     return files;
   }

@@ -21,15 +21,16 @@ Skills are AI coding assistant rules and best practices for specific libraries. 
 
 We welcome contributions! Here's how to add a new skill:
 
-### 1. Create the Skill Directory
+### 1. Create the Skill File
+
+Create a markdown file directly in the `skills/` directory:
 
 ```
 skills/
-└── your-skill-name/
-    └── SKILL.md
+└── your-library-best-practices.md
 ```
 
-### 2. Write the SKILL.md
+### 2. Write the Skill Content
 
 Follow this structure:
 
@@ -66,14 +67,16 @@ Describe when this skill should be applied.
 
 ```json
 {
-  "id": "your-skill-name",
-  "name": "Your Skill Name",
+  "id": "your-library-best-practices",
+  "name": "Your Library Best Practices",
   "description": "Brief description",
   "library": "package-name",
   "versionRange": ">=1.0.0",
-  "path": "skills/your-skill-name"
+  "path": "skills/your-library-best-practices.md"
 }
 ```
+
+Note: The `id` field should match the filename (without the .md extension).
 
 ### Version Range Syntax
 
@@ -87,9 +90,10 @@ Use [semver ranges](https://github.com/npm/node-semver#ranges):
 ### 4. Submit a Pull Request
 
 1. Fork this repository
-2. Create your skill
-3. Test locally with `help-me-ai -r file:///path/to/your/fork`
-4. Submit a PR
+2. Create your skill file in `skills/`
+3. Add entry to `index.json`
+4. Test locally with `help-me-ai -r file:///path/to/your/fork`
+5. Submit a PR
 
 ## Using a Custom Registry
 

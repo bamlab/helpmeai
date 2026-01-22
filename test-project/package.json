@@ -1,0 +1,9 @@
+{
+  "name": "test-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "@tanstack/react-query": "^5.28.0",
+    "zod": "^3.22.0",
+    "react-hook-form": "^7.50.0"
+  }
+}
