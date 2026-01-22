@@ -6,10 +6,10 @@ CLI tool to discover and install AI coding assistant skills based on your projec
 
 ```bash
 # Run directly with npx
-npx help-me-ai
+npx @bam.tech/help-me-ai
 
 # Or install globally
-npm install -g help-me-ai
+npm install -g @bam.tech/help-me-ai
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install -g help-me-ai
 Navigate to your project directory and run:
 
 ```bash
-npx help-me-ai
+npx @bam.tech/help-me-ai
 ```
 
 The CLI will:
@@ -45,19 +45,19 @@ Options:
 
 ```bash
 # Analyze current directory
-npx help-me-ai
+npx @bam.tech/help-me-ai
 
 # Analyze a specific directory
-npx help-me-ai -d /path/to/project
+npx @bam.tech/help-me-ai -d /path/to/project
 
 # List available skills without installing
-npx help-me-ai --list
+npx @bam.tech/help-me-ai --list
 
 # Install all matching skills
-npx help-me-ai --all
+npx @bam.tech/help-me-ai --all
 
 # Use a custom registry
-npx help-me-ai -r https://raw.githubusercontent.com/myorg/my-skills/main
+npx @bam.tech/help-me-ai -r https://raw.githubusercontent.com/myorg/my-skills/main
 ```
 
 ## How It Works

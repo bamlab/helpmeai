@@ -2,52 +2,41 @@
   "version": "1.0.0",
   "skills": [
     {
-      "id": "react-query-v5-best-practices",
-      "name": "React Query Best Practices",
-      "description": "TanStack Query v5 patterns, best practices, and common pitfalls",
+      "id": "data-fetching-react-query-v5",
+      "name": "Data Fetching with React Query v5",
+      "description": "React Query v5 patterns, queryOptions/mutationOptions, useSuspenseQuery, and QueryBoundaries",
       "library": "@tanstack/react-query",
       "versionRange": ">=5.0.0",
-      "path": "skills/react-query-v5-best-practices.md"
+      "path": "skills/data-fetching-react-query@v5.md"
     },
     {
-      "id": "react-query-v4-best-practices",
-      "name": "React Query v4 Patterns",
-      "description": "TanStack Query v4 patterns and migration tips",
-      "library": "@tanstack/react-query",
-      "versionRange": ">=4.0.0 <5.0.0",
-      "path": "skills/react-query-v4-best-practices.md"
+      "id": "react-19",
+      "name": "React 19",
+      "description": "React 19 features including use hook, ref as prop, and other breaking changes",
+      "library": "react",
+      "versionRange": ">=19.0.0",
+      "path": "skills/react-19.md"
     },
     {
-      "id": "zod-validation-best-practices",
-      "name": "Zod Schema Validation",
-      "description": "Best practices for Zod schemas, type inference, and validation patterns",
-      "library": "zod",
+      "id": "testing",
+      "name": "Testing Strategy",
+      "description": "Testing best practices, what to test, and how to structure tests",
+      "path": "skills/testing.md"
+    },
+    {
+      "id": "expo-router",
+      "name": "Expo Router",
+      "description": "Expo Router patterns and best practices",
+      "library": "expo-router",
+      "path": "skills/expo-router.md"
+    },
+    {
+      "id": "react-native-unistyles-v3",
+      "name": "React Native Unistyles v3",
+      "description": "React Native styling with Unistyles v3",
+      "library": "react-native-unistyles",
       "versionRange": ">=3.0.0",
-      "path": "skills/zod-validation-best-practices.md"
-    },
-    {
-      "id": "react-hook-form-best-practices",
-      "name": "React Hook Form Patterns",
-      "description": "Form handling best practices with React Hook Form",
-      "library": "react-hook-form",
-      "versionRange": ">=7.0.0",
-      "path": "skills/react-hook-form-best-practices.md"
-    },
-    {
-      "id": "zustand-state-best-practices",
-      "name": "Zustand State Management",
-      "description": "State management patterns with Zustand",
-      "library": "zustand",
-      "versionRange": ">=4.0.0",
-      "path": "skills/zustand-state-best-practices.md"
-    },
-    {
-      "id": "tailwindcss-best-practices",
-      "name": "Tailwind CSS Patterns",
-      "description": "Tailwind CSS best practices and utility patterns",
-      "library": "tailwindcss",
-      "versionRange": ">=3.0.0",
-      "path": "skills/tailwindcss-best-practices.md"
+      "path": "skills/react-native-unistyles@v3.md"
     }
   ]
 }

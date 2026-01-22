@@ -1,0 +1,29 @@
+# Source files (we only want dist/)
+src/
+tsconfig.json
+bun.lock
+
+# Development files
+test-project/
+skills-repo/
+
+# Documentation (keep README and LICENSE)
+TESTING.md
+CLI-FIXES.md
+CHANGELOG.md
+STRUCTURE.md
+PUBLISHING.md
+
+# Build artifacts
+*.tgz
+*.log
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# Git
+.git/
+.gitignore
+.gitattributes

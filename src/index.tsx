@@ -199,6 +199,27 @@ const App: React.FC<AppProps> = ({ options }) => {
             )}
           </Box>
         )}
+        <Box flexDirection="column" marginTop={1} paddingTop={1} borderStyle="single" borderColor="yellow">
+          <Text color="yellow" bold>📝 Next Step - Customize Your Skills</Text>
+          <Box flexDirection="column" marginTop={1}>
+            <Text color="gray">Some skills contain placeholders that need to be replaced with your actual codebase paths.</Text>
+            <Text color="gray">Prompt your coding agent with this exact message:</Text>
+          </Box>
+          <Box flexDirection="column" marginTop={1} paddingX={1} borderStyle="single" borderColor="cyan">
+            <Text color="cyan">
+              Replace all placeholder comments marked with "TO-EDIT" in the installed
+            </Text>
+            <Text color="cyan">
+              skill files (like @testing.md lines 196-197) with the actual paths and
+            </Text>
+            <Text color="cyan">
+              imports from my codebase. Analyze my project structure to find the
+            </Text>
+            <Text color="cyan">
+              correct testing utilities, setup files, and configuration paths.
+            </Text>
+          </Box>
+        </Box>
       </Box>
     );
   }
