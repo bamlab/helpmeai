@@ -78,7 +78,7 @@ The CLI automatically detects which AI assistant you're using:
 
 ## Creating Custom Skills
 
-See the [skills repository](https://github.com/bamlab/helpmeai-skills) for documentation on creating and contributing skills.
+See the [skills repository](https://github.com/bamlab/helpmeai/tree/main/skills-repo) for documentation on creating and contributing skills.
 
 ### Skills Registry Format
 

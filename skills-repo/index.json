@@ -1,0 +1,53 @@
+{
+  "version": "1.0.0",
+  "skills": [
+    {
+      "id": "react-query-v5",
+      "name": "React Query Best Practices",
+      "description": "TanStack Query v5 patterns, best practices, and common pitfalls",
+      "library": "@tanstack/react-query",
+      "versionRange": ">=5.0.0",
+      "path": "skills/react-query-v5"
+    },
+    {
+      "id": "react-query-v4",
+      "name": "React Query v4 Patterns",
+      "description": "TanStack Query v4 patterns and migration tips",
+      "library": "@tanstack/react-query",
+      "versionRange": ">=4.0.0 <5.0.0",
+      "path": "skills/react-query-v4"
+    },
+    {
+      "id": "zod-validation",
+      "name": "Zod Schema Validation",
+      "description": "Best practices for Zod schemas, type inference, and validation patterns",
+      "library": "zod",
+      "versionRange": ">=3.0.0",
+      "path": "skills/zod-validation"
+    },
+    {
+      "id": "react-hook-form",
+      "name": "React Hook Form Patterns",
+      "description": "Form handling best practices with React Hook Form",
+      "library": "react-hook-form",
+      "versionRange": ">=7.0.0",
+      "path": "skills/react-hook-form"
+    },
+    {
+      "id": "zustand-state",
+      "name": "Zustand State Management",
+      "description": "State management patterns with Zustand",
+      "library": "zustand",
+      "versionRange": ">=4.0.0",
+      "path": "skills/zustand-state"
+    },
+    {
+      "id": "tailwindcss-patterns",
+      "name": "Tailwind CSS Patterns",
+      "description": "Tailwind CSS best practices and utility patterns",
+      "library": "tailwindcss",
+      "versionRange": ">=3.0.0",
+      "path": "skills/tailwindcss-patterns"
+    }
+  ]
+}

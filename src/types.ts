@@ -69,6 +69,6 @@ export interface Config {
  * Default configuration
  */
 export const DEFAULT_CONFIG: Config = {
-  registryUrl: 'https://raw.githubusercontent.com/bamlab/helpmeai-skills/main',
+  registryUrl: 'https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo',
   defaultBranch: 'main',
 };
