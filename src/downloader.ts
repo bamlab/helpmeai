@@ -36,8 +36,14 @@ export class SkillDownloader {
   async fetchSkillContent(skill: Skill): Promise<Map<string, string>> {
     const files = new Map<string, string>();
     
-    // Fetch the skill file directly (path now includes the filename)
-    const skillUrl = `${this.config.registryUrl}/${skill.path}`;
+    // Determine if path is absolute (http/https/file) or relative
+    const isAbsolutePath = skill.path.startsWith('http://') || 
+                          skill.path.startsWith('https://') || 
+                          skill.path.startsWith('file://');
+    
+    const skillUrl = isAbsolutePath 
+      ? skill.path 
+      : `${this.config.registryUrl}/${skill.path}`;
     
     // Handle local file:// URLs for testing
     if (skillUrl.startsWith('file://')) {

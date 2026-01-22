@@ -28,7 +28,7 @@ type AppState =
   | { step: 'no-targets'; skills: MatchedSkill[] }
   | { step: 'selecting'; skills: MatchedSkill[]; targets: Target[] }
   | { step: 'list-only'; skills: MatchedSkill[] }
-  | { step: 'installing'; selectedSkills: MatchedSkill[]; target: Target }
+  | { step: 'installing'; selectedSkills: MatchedSkill[]; targets: Target[] }
   | { step: 'done'; count: number; installedFiles: string[] }
   | { step: 'error'; message: string };
 
@@ -49,13 +49,18 @@ const App: React.FC<AppProps> = ({ options }) => {
   // Installation effect
   useEffect(() => {
     if (state.step === 'installing') {
-      performInstallation(state.selectedSkills, state.target, options, setState);
+      performInstallation(state.selectedSkills, state.targets, options, setState);
     }
   }, [state.step]);
 
   if (state.step === 'parsing') {
     return (
       <Box flexDirection="column">
+        <Box flexDirection="column" marginBottom={1}>
+          <Text color="cyan" bold>🔍 Searching for AI skills adapted to your project...</Text>
+          <Text color="gray">This tool will analyze your project dependencies and find AI coding assistant skills tailored to your needs.</Text>
+          <Text color="gray">You'll be able to review and download the matching skills.</Text>
+        </Box>
         <Box>
           <Text color="blue">
             <Spinner type="dots" />
@@ -100,10 +105,7 @@ const App: React.FC<AppProps> = ({ options }) => {
     return (
       <Box flexDirection="column">
         <Text color="yellow">
-          No .cursor or .claude directory found in this project.
-        </Text>
-        <Text color="gray">
-          Create a .cursor/skills/ directory to install skills.
+          Skills will be installed to both .cursor/skills/ and .claude/ directories.
         </Text>
       </Box>
     );
@@ -125,6 +127,7 @@ const App: React.FC<AppProps> = ({ options }) => {
               {' '}
               {match.dependency.name}@{match.dependency.version}
             </Text>
+            <Text color="magenta">  Author: {match.skill.author}</Text>
           </Box>
         ))}
       </Box>
@@ -133,7 +136,7 @@ const App: React.FC<AppProps> = ({ options }) => {
 
   if (state.step === 'selecting') {
     const items = state.skills.map((match) => ({
-      label: `${match.skill.name} (${match.dependency.name}@${match.dependency.version})`,
+      label: `${match.skill.name} - by ${match.skill.author} (${match.dependency.name}@${match.dependency.version})`,
       value: match,
     }));
 
@@ -153,12 +156,10 @@ const App: React.FC<AppProps> = ({ options }) => {
                 return;
               }
 
-              const target = state.targets.find((t) => t.detected) || state.targets[0];
-
               setState({
                 step: 'installing',
                 selectedSkills: selectedItems,
-                target,
+                targets: state.targets,
               });
             }}
           />
@@ -205,18 +206,18 @@ const App: React.FC<AppProps> = ({ options }) => {
             <Text color="gray">Some skills contain placeholders that need to be replaced with your actual codebase paths.</Text>
             <Text color="gray">Prompt your coding agent with this exact message:</Text>
           </Box>
-          <Box flexDirection="column" marginTop={1} paddingX={1} borderStyle="single" borderColor="cyan">
+          <Box flexDirection="column" marginTop={1}>
             <Text color="cyan">
               Replace all placeholder comments marked with "TO-EDIT" in the installed
             </Text>
             <Text color="cyan">
-              skill files (like @testing.md lines 196-197) with the actual paths and
+              skill files with the actual paths and imports from my codebase.
             </Text>
             <Text color="cyan">
-              imports from my codebase. Analyze my project structure to find the
+              Analyze my project structure to find the correct testing utilities,
             </Text>
             <Text color="cyan">
-              correct testing utilities, setup files, and configuration paths.
+              setup files, and configuration paths.
             </Text>
           </Box>
         </Box>
@@ -289,25 +290,18 @@ async function runSetup(
       return;
     }
 
-    // Detect targets
+    // Detect targets (always returns both .cursor and .claude)
     const installer = new SkillInstaller();
     const targets = await installer.detectTargets(options.directory);
-    const detectedTargets = targets.filter((t) => t.detected);
 
-    if (detectedTargets.length === 0) {
-      setState({ step: 'no-targets', skills: matchedSkills });
-      return;
-    }
-
-    // Install all mode
+    // Install all mode - install to both targets
     if (options.all) {
-      const target = detectedTargets[0];
-      setState({ step: 'installing', selectedSkills: matchedSkills, target });
+      setState({ step: 'installing', selectedSkills: matchedSkills, targets });
       return;
     }
 
     // Interactive selection
-    setState({ step: 'selecting', skills: matchedSkills, targets: detectedTargets });
+    setState({ step: 'selecting', skills: matchedSkills, targets });
   } catch (error) {
     setState({
       step: 'error',
@@ -318,7 +312,7 @@ async function runSetup(
 
 async function performInstallation(
   selectedSkills: MatchedSkill[],
-  target: Target,
+  targets: Target[],
   options: CliOptions,
   setState: React.Dispatch<React.SetStateAction<AppState>>
 ): Promise<void> {
@@ -334,11 +328,15 @@ async function performInstallation(
     let successCount = 0;
     const installedFiles: string[] = [];
 
+    // Install to all targets (both .cursor and .claude)
     for (const match of selectedSkills) {
       try {
         const files = await downloader.fetchSkillContent(match.skill);
-        const paths = await installer.installSkill(match.skill, files, target);
-        installedFiles.push(...paths);
+        // Install to each target
+        for (const target of targets) {
+          const paths = await installer.installSkill(match.skill, files, target);
+          installedFiles.push(...paths);
+        }
         successCount++;
       } catch (error) {
         // Continue with other skills even if one fails

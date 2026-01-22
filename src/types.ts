@@ -8,14 +8,22 @@ export interface Dependency {
 }
 
 /**
+ * Library matching configuration
+ */
+export interface MatchingLibrary {
+  name: string;
+  versionRange: string;
+}
+
+/**
  * Represents a skill in the registry
  */
 export interface Skill {
   id: string;
   name: string;
   description: string;
-  library: string;
-  versionRange: string;
+  author: string;
+  matchingLibraries: MatchingLibrary[];
   path: string;
 }
 

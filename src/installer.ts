@@ -8,11 +8,12 @@ import type { Skill, Target, TargetType } from './types.js';
 export class SkillInstaller {
   /**
    * Detect available targets in a directory
+   * Always returns both .cursor and .claude targets
    */
   async detectTargets(directory: string): Promise<Target[]> {
     const targets: Target[] = [];
 
-    // Check for .cursor directory
+    // Always include .cursor target
     const cursorPath = join(directory, '.cursor');
     const cursorDetected = await this.directoryExists(cursorPath);
     targets.push({
@@ -21,7 +22,7 @@ export class SkillInstaller {
       detected: cursorDetected,
     });
 
-    // Check for .claude directory
+    // Always include .claude target
     const claudePath = join(directory, '.claude');
     const claudeDetected = await this.directoryExists(claudePath);
     targets.push({

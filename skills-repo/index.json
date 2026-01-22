@@ -5,38 +5,139 @@
       "id": "data-fetching-react-query-v5",
       "name": "Data Fetching with React Query v5",
       "description": "React Query v5 patterns, queryOptions/mutationOptions, useSuspenseQuery, and QueryBoundaries",
-      "library": "@tanstack/react-query",
-      "versionRange": ">=5.0.0",
-      "path": "skills/data-fetching-react-query@v5.md"
+      "author": "EliottG",
+      "matchingLibraries": [
+        {
+          "name": "@tanstack/react-query",
+          "versionRange": ">=5.0.0"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo/skills/data-fetching-react-query@v5.md"
     },
     {
       "id": "react-19",
       "name": "React 19",
       "description": "React 19 features including use hook, ref as prop, and other breaking changes",
-      "library": "react",
-      "versionRange": ">=19.0.0",
-      "path": "skills/react-19.md"
+      "author": "expo",
+      "matchingLibraries": [
+        {
+          "name": "react",
+          "versionRange": ">=19.0.0"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo/skills/react-19.md"
     },
     {
       "id": "testing",
       "name": "Testing Strategy",
       "description": "Testing best practices, what to test, and how to structure tests",
-      "path": "skills/testing.md"
+      "author": "EliottG",
+      "matchingLibraries": [
+        {
+          "name": "jest",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo/skills/testing.md"
     },
     {
       "id": "expo-router",
       "name": "Expo Router",
       "description": "Expo Router patterns and best practices",
-      "library": "expo-router",
-      "path": "skills/expo-router.md"
+      "author": "EliottG",
+      "matchingLibraries": [
+        {
+          "name": "expo-router",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo/skills/expo-router.md"
     },
     {
       "id": "react-native-unistyles-v3",
       "name": "React Native Unistyles v3",
       "description": "React Native styling with Unistyles v3",
-      "library": "react-native-unistyles",
-      "versionRange": ">=3.0.0",
-      "path": "skills/react-native-unistyles@v3.md"
+      "author": "EliottG",
+      "matchingLibraries": [
+        {
+          "name": "react-native-unistyles",
+          "versionRange": ">=3.0.0"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/bamlab/helpmeai/main/skills-repo/skills/react-native-unistyles@v3.md"
+    },
+    {
+      "id": "react-best-practices",
+      "name": "React Best Practices",
+      "description": "Comprehensive performance optimization guide for React and Next.js applications from Vercel. Contains 40+ rules across 8 categories: eliminating waterfalls (CRITICAL), bundle size optimization (CRITICAL), server-side performance, client-side data fetching, re-render optimization, rendering performance, advanced patterns, and JavaScript performance",
+      "author": "Vercel",
+      "matchingLibraries": [
+        {
+          "name": "react",
+          "versionRange": "*"
+        },
+        {
+          "name": "next",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/vercel-labs/agent-skills/main/skills/react-best-practices/AGENTS.md"
+    },
+    {
+      "id": "rn-lists-flatlist-flashlist",
+      "name": "React Native: FlatList & FlashList (CRITICAL)",
+      "description": "Replace ScrollView with virtualized lists (FlatList/FlashList) to prevent FPS drops and memory issues. Critical for any list rendering in React Native",
+      "author": "Callstack",
+      "matchingLibraries": [
+        {
+          "name": "react-native",
+          "versionRange": "*"
+        },
+        {
+            "name": "@shopify/flash-list",
+            "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/callstackincubator/agent-skills/main/skills/react-native-best-practices/references/js-lists-flatlist-flashlist.md"
+    },
+    {
+      "id": "rn-bundle-barrel-exports",
+      "name": "React Native: Avoid Barrel Imports (CRITICAL)",
+      "description": "Avoid barrel file imports to reduce bundle size. Import directly from source files instead of index.js/index.ts re-exports",
+      "author": "Callstack",
+      "matchingLibraries": [
+        {
+          "name": "react-native",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/callstackincubator/agent-skills/main/skills/react-native-best-practices/references/bundle-barrel-exports.md"
+    },
+    {
+      "id": "rn-bundle-analyze",
+      "name": "React Native: JS Bundle Analysis (CRITICAL)",
+      "description": "Analyze and visualize JavaScript bundle to identify large dependencies and optimization opportunities using source-map-explorer",
+      "author": "Callstack",
+      "matchingLibraries": [
+        {
+          "name": "react-native",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/callstackincubator/agent-skills/main/skills/react-native-best-practices/references/bundle-analyze-js.md"
+    },
+    {
+      "id": "rn-android-16kb-alignment",
+      "name": "React Native: Android 16KB Page Alignment (CRITICAL)",
+      "description": "Third-party library alignment requirements for Google Play compatibility. Critical for Android apps targeting newer devices",
+      "author": "Callstack",
+      "matchingLibraries": [
+        {
+          "name": "react-native",
+          "versionRange": "*"
+        }
+      ],
+      "path": "https://raw.githubusercontent.com/callstackincubator/agent-skills/main/skills/react-native-best-practices/references/native-android-16kb-alignment.md"
     }
   ]
 }

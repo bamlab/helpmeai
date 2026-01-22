@@ -28,11 +28,14 @@ export class SkillMatcher {
     skill: Skill,
     dependencies: Dependency[]
   ): Dependency | null {
-    for (const dep of dependencies) {
-      if (dep.name === skill.library) {
-        // Try to match the version
-        if (this.versionMatches(dep.version, skill.versionRange)) {
-          return dep;
+    // Check each matching library configuration
+    for (const matchingLib of skill.matchingLibraries) {
+      for (const dep of dependencies) {
+        if (dep.name === matchingLib.name) {
+          // Try to match the version
+          if (this.versionMatches(dep.version, matchingLib.versionRange)) {
+            return dep;
+          }
         }
       }
     }
