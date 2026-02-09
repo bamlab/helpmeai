@@ -200,7 +200,7 @@ const App: React.FC<AppProps> = ({ options }) => {
             )}
           </Box>
         )}
-        <Box flexDirection="column" marginTop={1} paddingTop={1} borderStyle="single" borderColor="yellow">
+        <Box flexDirection="column" marginTop={1}>
           <Text color="yellow" bold>📝 Next Step - Customize Your Skills</Text>
           <Box flexDirection="column" marginTop={1}>
             <Text color="gray">Some skills contain placeholders that need to be replaced with your actual codebase paths.</Text>

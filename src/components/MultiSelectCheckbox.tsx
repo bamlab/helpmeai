@@ -55,7 +55,11 @@ export function MultiSelectCheckbox<T>({ items, defaultSelected = [], onSubmit }
           <Box key={index}>
             <Text color={isCursor ? 'cyan' : undefined}>
               {isCursor ? '❯ ' : '  '}
-              {isSelected ? '☑ ' : '☐ '}
+            </Text>
+            <Text color={isSelected ? 'green' : 'gray'}>
+              {isSelected ? '● ' : '○ '}
+            </Text>
+            <Text color={isCursor ? 'cyan' : undefined}>
               {item.label}
             </Text>
           </Box>
