@@ -25,7 +25,7 @@ The CLI will:
 1. Scan your `package.json` for dependencies
 2. Match them against available skills in the registry
 3. Present an interactive selection of matching skills
-4. Download and install selected skills to `.cursor/skills/` or `.claude/`
+4. Download and install selected skills to `.cursor/skills/{skill-name}/SKILL.md` or `.claude/skills/{skill-name}/SKILL.md`
 
 ### Options
 
@@ -71,10 +71,12 @@ The CLI reads your project's dependencies and matches them against a skills regi
 
 ### Target Directories
 
-The CLI automatically detects which AI assistant you're using:
+The CLI automatically detects which AI assistant you're using and installs skills in the standard folder structure:
 
-- **Cursor**: Skills are installed to `.cursor/skills/`
-- **Claude**: Skills are installed to `.claude/`
+- **Cursor**: Skills are installed to `.cursor/skills/{skill-name}/SKILL.md`
+- **Claude**: Skills are installed to `.claude/skills/{skill-name}/SKILL.md` (project-specific skills)
+
+Each skill is installed in its own folder following the Agent Skills standard format.
 
 ## Creating Custom Skills
 

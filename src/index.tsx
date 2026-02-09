@@ -105,7 +105,7 @@ const App: React.FC<AppProps> = ({ options }) => {
     return (
       <Box flexDirection="column">
         <Text color="yellow">
-          Skills will be installed to both .cursor/skills/ and .claude/ directories.
+          Skills will be installed to both .cursor/skills/ and .claude/skills/ directories.
         </Text>
       </Box>
     );

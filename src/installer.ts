@@ -22,9 +22,9 @@ export class SkillInstaller {
       detected: cursorDetected,
     });
 
-    // Always include .claude target
-    const claudePath = join(directory, '.claude');
-    const claudeDetected = await this.directoryExists(claudePath);
+    // Always include .claude target (project-specific skills)
+    const claudePath = join(directory, '.claude', 'skills');
+    const claudeDetected = await this.directoryExists(join(directory, '.claude'));
     targets.push({
       type: 'claude',
       path: claudePath,
@@ -44,13 +44,14 @@ export class SkillInstaller {
   ): Promise<string[]> {
     const installedFiles: string[] = [];
 
-    // Ensure the target directory exists
-    await this.ensureDirectory(target.path);
+    // Create skill directory: .cursor/skills/{skill-id}/
+    const skillDirectory = join(target.path, skill.id);
+    await this.ensureDirectory(skillDirectory);
 
-    // Write skill content directly as {skill-id}.md
+    // Write skill content as SKILL.md inside the skill directory
     for (const [filename, content] of files) {
-      // Use the skill ID as the filename (e.g., react-query-v5.md)
-      const filePath = join(target.path, `${skill.id}.md`);
+      // Write as SKILL.md inside the skill folder
+      const filePath = join(skillDirectory, 'SKILL.md');
       await writeFile(filePath, content, 'utf-8');
       installedFiles.push(filePath);
     }
@@ -66,7 +67,7 @@ export class SkillInstaller {
       case 'cursor':
         return '.cursor/skills/';
       case 'claude':
-        return '.claude/';
+        return '.claude/skills/';
       default:
         return type;
     }
