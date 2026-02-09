@@ -1,6 +1,6 @@
 {
   "name": "@bam.tech/help-me-ai",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI tool to discover and install AI coding assistant skills based on your project dependencies",
   "type": "module",
   "main": "dist/index.js",
