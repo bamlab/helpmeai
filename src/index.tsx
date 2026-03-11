@@ -105,7 +105,7 @@ const App: React.FC<AppProps> = ({ options }) => {
     return (
       <Box flexDirection="column">
         <Text color="yellow">
-          Skills will be installed to both .cursor/skills/ and .claude/skills/ directories.
+          No installation targets found.
         </Text>
       </Box>
     );
@@ -328,14 +328,18 @@ async function performInstallation(
     let successCount = 0;
     const installedFiles: string[] = [];
 
-    // Install to all targets (both .cursor and .claude)
     for (const match of selectedSkills) {
       try {
-        const files = await downloader.fetchSkillContent(match.skill);
-        // Install to each target
-        for (const target of targets) {
-          const paths = await installer.installSkill(match.skill, files, target);
-          installedFiles.push(...paths);
+        if (match.skill.skillsShUrl) {
+          // Delegate to the skills CLI — it handles agent directories automatically
+          await installer.installViaSkillsCli(match.skill, options.directory);
+        } else {
+          // Direct download and install to each target
+          const files = await downloader.fetchSkillContent(match.skill);
+          for (const target of targets) {
+            const paths = await installer.installSkill(match.skill, files, target);
+            installedFiles.push(...paths);
+          }
         }
         successCount++;
       } catch (error) {

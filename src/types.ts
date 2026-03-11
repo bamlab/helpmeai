@@ -16,7 +16,10 @@ export interface MatchingLibrary {
 }
 
 /**
- * Represents a skill in the registry
+ * Represents a skill in the registry.
+ * Skills can be sourced from a direct URL (`path`) or from the skills.sh ecosystem (`skillsShUrl`).
+ * For skills.sh, the URL format is: https://skills.sh/{org}/{repo}/{skill}
+ * which resolves to: https://raw.githubusercontent.com/{org}/{repo}/main/skills/{skill}/AGENTS.md
  */
 export interface Skill {
   id: string;
@@ -24,7 +27,10 @@ export interface Skill {
   description: string;
   author: string;
   matchingLibraries: MatchingLibrary[];
-  path: string;
+  /** Direct URL to the skill content (raw GitHub URL or local path) */
+  path?: string;
+  /** skills.sh URL, e.g. https://skills.sh/org/repo/skill-name */
+  skillsShUrl?: string;
 }
 
 /**

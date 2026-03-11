@@ -74,21 +74,6 @@ const { data } = useSuspenseQuery({
 
 ## Common Patterns
 
-### Dependent Queries
-
-```typescript
-const { data: user } = useQuery({
-  queryKey: userKeys.detail(userId),
-  queryFn: () => fetchUser(userId),
-});
-
-const { data: projects } = useQuery({
-  queryKey: ['projects', user?.id],
-  queryFn: () => fetchProjects(user!.id),
-  enabled: !!user?.id, // Only run when user is available
-});
-```
-
 ### Infinite Queries
 
 ```typescript

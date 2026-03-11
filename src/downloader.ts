@@ -13,38 +13,38 @@ export class SkillDownloader {
    */
   async fetchIndex(): Promise<SkillsIndex> {
     const url = `${this.config.registryUrl}/index.json`;
-    
+
     // Handle local file:// URLs for testing
     if (url.startsWith('file://')) {
       const filePath = fileURLToPath(url);
       const content = await readFile(filePath, 'utf-8');
       return JSON.parse(content) as SkillsIndex;
     }
-    
+
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Failed to fetch skills index: ${response.status} ${response.statusText}`);
     }
 
-    const index = (await response.json()) as SkillsIndex;
-    return index;
+    return (await response.json()) as SkillsIndex;
   }
 
   /**
-   * Fetch a skill's content from the registry
+   * Fetch a skill's content from the registry (direct path only).
+   * Skills sourced via skills.sh are installed with installViaSkillsCli instead.
    */
   async fetchSkillContent(skill: Skill): Promise<Map<string, string>> {
     const files = new Map<string, string>();
-    
-    // Determine if path is absolute (http/https/file) or relative
-    const isAbsolutePath = skill.path.startsWith('http://') || 
-                          skill.path.startsWith('https://') || 
-                          skill.path.startsWith('file://');
-    
-    const skillUrl = isAbsolutePath 
-      ? skill.path 
-      : `${this.config.registryUrl}/${skill.path}`;
-    
+
+    if (!skill.path) {
+      throw new Error(`Skill "${skill.id}" has no direct path — use installViaSkillsCli for skills.sh skills`);
+    }
+
+    const isAbsolutePath = skill.path.startsWith('http://') ||
+                           skill.path.startsWith('https://') ||
+                           skill.path.startsWith('file://');
+    const skillUrl = isAbsolutePath ? skill.path : `${this.config.registryUrl}/${skill.path}`;
+
     // Handle local file:// URLs for testing
     if (skillUrl.startsWith('file://')) {
       const filePath = fileURLToPath(skillUrl);
@@ -52,23 +52,13 @@ export class SkillDownloader {
       files.set('content', content);
       return files;
     }
-    
+
     const response = await fetch(skillUrl);
-    
     if (!response.ok) {
       throw new Error(`Failed to fetch skill ${skill.id}: ${response.status} ${response.statusText}`);
     }
 
-    const content = await response.text();
-    files.set('content', content);
-
+    files.set('content', await response.text());
     return files;
-  }
-
-  /**
-   * Build the full URL for a skill file
-   */
-  getSkillUrl(skill: Skill, filename: string): string {
-    return `${this.config.registryUrl}/${skill.path}/${filename}`;
   }
 }

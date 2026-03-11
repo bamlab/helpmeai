@@ -1,6 +1,10 @@
 import { mkdir, writeFile, access } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
+import { join } from 'node:path';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
 import type { Skill, Target, TargetType } from './types.js';
+
+const execAsync = promisify(exec);
 
 /**
  * Install skills to the appropriate directory
@@ -13,14 +17,16 @@ export class SkillInstaller {
   async detectTargets(directory: string): Promise<Target[]> {
     const targets: Target[] = [];
 
-    // Always include .cursor target
+    // Only include .cursor target if the .cursor directory exists (i.e. Cursor is being used)
     const cursorPath = join(directory, '.cursor');
     const cursorDetected = await this.directoryExists(cursorPath);
-    targets.push({
-      type: 'cursor',
-      path: join(cursorPath, 'skills'),
-      detected: cursorDetected,
-    });
+    if (cursorDetected) {
+      targets.push({
+        type: 'cursor',
+        path: join(cursorPath, 'skills'),
+        detected: true,
+      });
+    }
 
     // Always include .claude target (project-specific skills)
     const claudePath = join(directory, '.claude', 'skills');
@@ -32,6 +38,23 @@ export class SkillInstaller {
     });
 
     return targets;
+  }
+
+  /**
+   * Install a skills.sh skill using the `skills` CLI.
+   * Runs: npx skills add <github-url> -s <skill-name> --agent '*' -y
+   */
+  async installViaSkillsCli(skill: Skill, directory: string): Promise<void> {
+    const match = skill.skillsShUrl!.match(/^https:\/\/skills\.sh\/([^/]+)\/([^/]+)\/([^/]+)$/);
+    if (!match) throw new Error(`Invalid skills.sh URL: ${skill.skillsShUrl}`);
+
+    const [, org, repo, skillName] = match;
+    const githubUrl = `https://github.com/${org}/${repo}`;
+
+    await execAsync(
+      `npx --yes skills add ${githubUrl} -s ${skillName} --agent '*' -y`,
+      { cwd: directory }
+    );
   }
 
   /**
